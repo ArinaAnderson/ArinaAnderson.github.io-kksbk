@@ -80,6 +80,58 @@
     document.addEventListener('mouseup', mainPinMouseUpHandler);
   }
 
+  //listeners for touch events:
+  /*function mainPinTouchStartHandler(evt) {
+    evt.preventDefault();
+
+    var startCoords = {
+      x: evt.clientX,//touch.clientX, //evt.clientX,
+      y: evt.clientY,//touch.clientY//evt.clientY
+    };
+    console.log( evt.clientX);
+
+    function mainPinTouchMoveHandler(moveEvt) {
+      //moveEvt.preventDefault();
+
+      var shift = {
+        x: startCoords.x - moveEvt.clientX,//startCoords.x - touch.clientX,//startCoords.x - moveEvt.clientX,
+        y: startCoords.y - moveEvt.clientY//startCoords.y - touch.clientY//startCoords.y - moveEvt.clientY
+      };
+
+      startCoords = {
+        x: moveEvt.clientX,//touch.clientX,//moveEvt.clientX,
+        y: moveEvt.clientY//touch.clientY//moveEvt.clientY
+      };
+
+      var validatedX = utils.validateCoord(mainPin.offsetLeft - shift.x, locationParams.MIN_LOCATION_X - 0.5 * mainPin.offsetWidth,
+          locationParams.MAX_LOCATION_X - 0.5 * mainPin.offsetWidth);
+      var validatedY = utils.validateCoord(mainPin.offsetTop - shift.y, locationParams.MIN_LOCATION_Y - mainPin.offsetHeight,
+          locationParams.MAX_LOCATION_Y - mainPin.offsetHeight);
+      window.utils.setupStyleLeftTop(mainPin, validatedX, validatedY);
+
+      window.form.fillAddressField(Math.round(parseInt(mainPin.style.left, 10) + 0.5 * mainPin.offsetWidth),
+          Math.round(parseInt(mainPin.style.top, 10) + mainPin.offsetHeight));
+    }
+
+    function mainPinTouchEndHandler(upEvt) {
+      //upEvt.preventDefault();
+      if (isPageActivated) {
+        window.form.activate();
+        window.filtering.activate();
+        window.backend.load(successLoadHandler, window.notifications.notifyOfError, URL_GET);
+        map.classList.remove('map--faded');
+        isPageActivated = false;
+      }
+
+      document.removeEventListener('touchmove', mainPinTouchMoveHandler);
+      document.removeEventListener('touchend', mainPinTouchEndHandler);
+    }
+
+    document.addEventListener('touchmove', mainPinTouchMoveHandler);
+    document.addEventListener('touchend', mainPinTouchEndHandler);
+  }*/
+//end of touch listeners
+
   window.main = {
     deactivate: function () {
       isPageActivated = true;
@@ -97,6 +149,7 @@
 
   window.main.deactivate();
   mainPin.addEventListener('mousedown', mainPinMouseDownHandler);
+  mainPin.addEventListener('touchstart', mainPinTouchStartHandler);
 
   filterForm.addEventListener('change', function (evt) {
     window.filtering.filterSelectChangeHandler(evt, loadedPins);
