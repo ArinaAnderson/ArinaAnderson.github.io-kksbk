@@ -149,7 +149,7 @@
 
   window.main.deactivate();
   mainPin.addEventListener('mousedown', mainPinMouseDownHandler);
-  mainPin.addEventListener('touchstart', mainPinTouchStartHandler);
+  //mainPin.addEventListener('touchstart', mainPinTouchStartHandler);
 
   filterForm.addEventListener('change', function (evt) {
     window.filtering.filterSelectChangeHandler(evt, loadedPins);
